@@ -1,34 +1,40 @@
 import React, {useState} from 'react';
 
-type PizzaBlockProps = {
+export type PizzaBlockType = {
+    id: number,
     name: string,
-    price: number
+    price: number,
+    sizes: number[],
+    types: number[],
+    imageUrl: string,
+    category: number,
+    rating: number
 }
 
-export const PizzaBlock = ({name, price}: PizzaBlockProps) => {
+export const PizzaBlock = ({name, price, sizes, types,imageUrl}: PizzaBlockType) => {
     const [count, setCount] = useState(0)
+    const [activeType, setActiveType] = useState<number>(0)
+    const [activeSize, setActiveSize] = useState<number>(0)
+    const typesArr = ['традиционное', 'тонкое']
     return (
         <div className="pizza-block">
             <img
                 className="pizza-block__image"
-                src="https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/b750f576-4a83-48e6-a283-5a8efb68c35d.jpg"
+                src={imageUrl}
                 alt="Pizza"
             />
             <h4 className="pizza-block__title">{name}</h4>
             <div className="pizza-block__selector">
                 <ul>
-                    <li className="active">тонкое</li>
-                    <li>традиционное</li>
+                    {types && types.map((el)=><li key={el} className={activeType===el ? 'active' : ''} onClick={()=>setActiveType(el)}>{typesArr[el]}</li>)}
                 </ul>
                 <ul>
-                    <li className="active">26 см.</li>
-                    <li>30 см.</li>
-                    <li>40 см.</li>
+                    {sizes && sizes.map((el, i)=><li key={i} className={activeSize===i ? 'active' : ''} onClick={()=>setActiveSize(i)}>{el}</li>)}
                 </ul>
             </div>
             <div className="pizza-block__bottom">
                 <div className="pizza-block__price">от {price} ₽</div>
-                <div onClick={()=>setCount(count+1)} className="button button--outline button--add">
+                <div onClick={() => setCount(count + 1)} className="button button--outline button--add">
                     <svg
                         width="12"
                         height="12"
@@ -41,7 +47,7 @@ export const PizzaBlock = ({name, price}: PizzaBlockProps) => {
                             fill="white"
                         />
                     </svg>
-                    <span >Добавить</span>
+                    <span>Добавить</span>
                     <i>{count}</i>
                 </div>
             </div>

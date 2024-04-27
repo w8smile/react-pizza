@@ -1,9 +1,20 @@
-import React from 'react';
+import React, {MouseEventHandler} from 'react';
 
 export const Sort = () => {
+    const [isOpen, setIsOpen] = React.useState(false);
+    const [selected, setSelected] = React.useState(0);
+    const arr = ['популярности', 'цене', 'алфавиту']
+    const sortName = arr[selected]
+
+    const onSelectHandler = (index: number) => {
+        setSelected(index)
+        setIsOpen(false)
+    }
+
+
     return (
         <div className="sort">
-            <div className="sort__label">
+            <div className="sort__label" >
                 <svg
                     width="10"
                     height="6"
@@ -17,15 +28,18 @@ export const Sort = () => {
                     />
                 </svg>
                 <b>Сортировка по:</b>
-                <span>популярности</span>
+                <span onClick={()=>setIsOpen(!isOpen)}>{sortName}</span>
             </div>
-            <div className="sort__popup">
+            {isOpen && <div className="sort__popup">
                 <ul>
-                    <li className="active">популярности</li>
-                    <li>цене</li>
-                    <li>алфавиту</li>
+                    {arr.map((el,i) => {
+                    return(
+                        <li key={i}
+                            onClick={()=>onSelectHandler(i)}
+                            className={selected===i ? 'active' : ''}>{el}</li>
+                    )})})
                 </ul>
-            </div>
+            </div>}
         </div>
     );
 };
