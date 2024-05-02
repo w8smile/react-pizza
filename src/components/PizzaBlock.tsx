@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 
 export type PizzaBlockType = {
     id: number,
-    name: string,
+    title: string,
     price: number,
     sizes: number[],
     types: number[],
@@ -11,7 +11,7 @@ export type PizzaBlockType = {
     rating: number
 }
 
-export const PizzaBlock = ({name, price, sizes, types,imageUrl}: PizzaBlockType) => {
+export const PizzaBlock = ({title, price, sizes, types,imageUrl}: PizzaBlockType) => {
     const [count, setCount] = useState(0)
     const [activeType, setActiveType] = useState<number>(0)
     const [activeSize, setActiveSize] = useState<number>(0)
@@ -23,7 +23,7 @@ export const PizzaBlock = ({name, price, sizes, types,imageUrl}: PizzaBlockType)
                 src={imageUrl}
                 alt="Pizza"
             />
-            <h4 className="pizza-block__title">{name}</h4>
+            <h4 className="pizza-block__title">{title}</h4>
             <div className="pizza-block__selector">
                 <ul>
                     {types && types.map((el)=><li key={el} className={activeType===el ? 'active' : ''} onClick={()=>setActiveType(el)}>{typesArr[el]}</li>)}

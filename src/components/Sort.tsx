@@ -1,13 +1,17 @@
 import React, {MouseEventHandler} from 'react';
 
-export const Sort = () => {
+type SortProps = {
+    value: number;
+    onClickSortType: (id: number) => void;
+}
+
+export const Sort = ({value, onClickSortType}: SortProps) => {
     const [isOpen, setIsOpen] = React.useState(false);
-    const [selected, setSelected] = React.useState(0);
     const arr = ['популярности', 'цене', 'алфавиту']
-    const sortName = arr[selected]
+    const sortName = arr[value]
 
     const onSelectHandler = (index: number) => {
-        setSelected(index)
+        onClickSortType(index)
         setIsOpen(false)
     }
 
@@ -36,8 +40,8 @@ export const Sort = () => {
                     return(
                         <li key={i}
                             onClick={()=>onSelectHandler(i)}
-                            className={selected===i ? 'active' : ''}>{el}</li>
-                    )})})
+                            className={value===i ? 'active' : ''}>{el}</li>
+                    )})}
                 </ul>
             </div>}
         </div>
