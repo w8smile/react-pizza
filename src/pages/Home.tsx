@@ -17,7 +17,7 @@ const Home = () => {
 
     useEffect(() => {
         setLoading(false);
-        axios.get<PizzaBlockType[]>('https://662b97cbde35f91de158cbb7.mockapi.io/items?category=' + categoryId)
+        axios.get<PizzaBlockType[]>(`https://662b97cbde35f91de158cbb7.mockapi.io/items?${categoryId >0 ? `category=${categoryId}`: ''}`)
             .then((res) => {
                 setArray(res.data);
                 setLoading(true)

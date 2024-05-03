@@ -7,8 +7,8 @@ type SortProps = {
 
 export const Sort = ({value, onClickSortType}: SortProps) => {
     const [isOpen, setIsOpen] = React.useState(false);
-    const arr = ['популярности', 'цене', 'алфавиту']
-    const sortName = arr[value]
+    const list = ['популярности', 'цене', 'алфавиту']
+    const sortName = list[value]
 
     const onSelectHandler = (index: number) => {
         onClickSortType(index)
@@ -36,7 +36,7 @@ export const Sort = ({value, onClickSortType}: SortProps) => {
             </div>
             {isOpen && <div className="sort__popup">
                 <ul>
-                    {arr.map((el,i) => {
+                    {list.map((el,i) => {
                     return(
                         <li key={i}
                             onClick={()=>onSelectHandler(i)}
